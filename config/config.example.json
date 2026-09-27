@@ -1,0 +1,126 @@
+{
+  "asa": {
+    "host": "192.168.1.1",
+    "username": "admin",
+    "password": "your_secure_password",
+    "timeout": 10,
+    "port": 22
+  },
+  
+  "slack": {
+    "webhook_url": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXX",
+    "enabled": true,
+    "channel": "#security-alerts",
+    "username": "ASA DDOS Alert"
+  },
+  
+  "email": {
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "use_tls": true,
+    "sender": "asa-alerts@yourdomain.com",
+    "sender_password": "your_app_password",
+    "recipients": [
+      "security@yourdomain.com",
+      "it-manager@yourdomain.com",
+      "infrastructure@yourdomain.com"
+    ],
+    "enabled": true,
+    "html_templates": true
+  },
+  
+  "auto_unblock": {
+    "enabled": true,
+    "hours": 24,
+    "check_interval_minutes": 30
+  },
+  
+  "machine_learning": {
+    "enabled": true,
+    "model_type": "isolation_forest",
+    "threshold": -0.5,
+    "contamination": 0.1,
+    "auto_train_interval_hours": 24,
+    "min_training_samples": 100,
+    "confidence_threshold": 0.7
+  },
+  
+  "detection": {
+    "ddos_patterns": [
+      "DDoS",
+      "DOS",
+      "Attack",
+      "suspicious"
+    ],
+    "severity_levels": {
+      "HIGH": ["Critical", "CRITICAL", "High"],
+      "MEDIUM": ["Medium", "Warning"],
+      "LOW": ["Low", "Info"]
+    }
+  },
+  
+  "rate_limiting": {
+    "enabled": false,
+    "packets_per_second": 1000,
+    "bytes_per_second": 1000000
+  },
+  
+  "whitelist": {
+    "auto_import": false,
+    "import_file": "/etc/asa-ddos/whitelist.txt",
+    "default_ips": [
+      "192.168.1.0/24",
+      "10.0.0.0/8"
+    ]
+  },
+  
+  "database": {
+    "path": "/var/lib/asa-ddos/alerts.db",
+    "auto_backup": true,
+    "backup_interval_hours": 24,
+    "backup_dir": "/var/backups/asa-ddos",
+    "retention_days": 90
+  },
+  
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "file": "/var/log/asa_ddos_remediation.log",
+    "max_size_mb": 100,
+    "backup_count": 30
+  },
+  
+  "dashboard": {
+    "port": 5000,
+    "host": "0.0.0.0",
+    "debug": false,
+    "ssl": false,
+    "ssl_cert": "/etc/nginx/ssl/certificate.crt",
+    "ssl_key": "/etc/nginx/ssl/private.key"
+  },
+  
+  "syslog": {
+    "listen_port": 514,
+    "bind_address": "0.0.0.0",
+    "buffer_size": 4096
+  },
+  
+  "asynchronous": {
+    "thread_pool_size": 4,
+    "queue_size": 1000
+  },
+  
+  "alerts": {
+    "send_summary_email": true,
+    "summary_interval": "daily",
+    "summary_time": "09:00",
+    "include_stats": true
+  },
+  
+  "performance": {
+    "cache_enabled": true,
+    "cache_ttl_seconds": 300,
+    "batch_operations": true,
+    "batch_size": 100
+  }
+}
